@@ -125,11 +125,42 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Dhivehi Font (Mv Iyyu Formal) */
+@font-face {
+  font-family: 'Mv Iyyu Formal';
+  src: url('/fonts/OnlineWebFonts_COM_da8ceb43c70325200d8039403cce053e/Mv Iyyu Formal/Web Fonts/3a488419d6f809a24ab0a7e1eb6ce51d.woff2') format('woff2'),
+       url('/fonts/OnlineWebFonts_COM_da8ceb43c70325200d8039403cce053e/Mv Iyyu Formal/Web Fonts/3a488419d6f809a24ab0a7e1eb6ce51d.woff') format('woff'),
+       url('/fonts/OnlineWebFonts_COM_da8ceb43c70325200d8039403cce053e/Mv Iyyu Formal/Web Fonts/3a488419d6f809a24ab0a7e1eb6ce51d.ttf') format('truetype'),
+       url('/fonts/OnlineWebFonts_COM_da8ceb43c70325200d8039403cce053e/Mv Iyyu Formal/Web Fonts/3a488419d6f809a24ab0a7e1eb6ce51d.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Dhivehi language styling */
+  [lang="dv"] {
+    font-family: 'Mv Iyyu Formal', sans-serif;
+    line-height: 1.8; /* Better readability for Thaana script */
+  }
+
+  /* RTL layout support */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
   }
 }

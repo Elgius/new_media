@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useArticleStore } from '@/lib/stores/articleStore';
+import { useUIStore } from '@/lib/stores/uiStore';
 import { formatDistanceToNow } from 'date-fns';
 
 export function Sidebar() {
   const { articles } = useArticleStore();
+  const language = useUIStore((state) => state.language);
 
   // Get the 5 most recent articles as "trending"
   const trendingArticles = articles
@@ -35,7 +37,7 @@ export function Sidebar() {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-sm font-medium leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                        {article.title}
+                        {article.title[language.code]}
                       </h4>
                       <p className="text-xs text-muted-foreground mt-1">
                         {formatDistanceToNow(article.publishedAt, { addSuffix: true })}

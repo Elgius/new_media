@@ -49,11 +49,35 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
   searchArticles: (query) => {
     const { articles } = get();
     const lowerQuery = query.toLowerCase();
-    return articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(lowerQuery) ||
-        article.summary.toLowerCase().includes(lowerQuery) ||
-        article.category.name.toLowerCase().includes(lowerQuery)
-    );
+    return articles.filter((article) => {
+      // Search in bilingual title
+      const titleMatch =
+        article.title.en.toLowerCase().includes(lowerQuery) ||
+        article.title.dv.toLowerCase().includes(lowerQuery);
+
+      // Search in bilingual summary
+      const summaryMatch =
+        article.summary.en.toLowerCase().includes(lowerQuery) ||
+        article.summary.dv.toLowerCase().includes(lowerQuery);
+
+      // Search in bilingual category name
+      const categoryMatch =
+        article.category.name.en.toLowerCase().includes(lowerQuery) ||
+        article.category.name.dv.toLowerCase().includes(lowerQuery);
+
+      // Search in bilingual author
+      const authorMatch =
+        article.author.en.toLowerCase().includes(lowerQuery) ||
+        article.author.dv.toLowerCase().includes(lowerQuery);
+
+      // Search in bilingual tags
+      const tagsMatch = article.tags?.some(
+        (tag) =>
+          tag.en.toLowerCase().includes(lowerQuery) ||
+          tag.dv.toLowerCase().includes(lowerQuery)
+      );
+
+      return titleMatch || summaryMatch || categoryMatch || authorMatch || tagsMatch;
+    });
   },
 }));

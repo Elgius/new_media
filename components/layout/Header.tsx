@@ -1,18 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useArticleStore } from '@/lib/stores/articleStore';
-import { useUIStore } from '@/lib/stores/uiStore';
+import { useUIStore, LANGUAGES } from '@/lib/stores/uiStore';
+import { getTranslation } from '@/lib/translations';
 import { useState } from 'react';
 
 export function Header() {
   const { categories } = useArticleStore();
-  const { mobileMenuOpen, searchOpen, toggleMobileMenu, toggleSearch, closeMobileMenu } =
+  const { mobileMenuOpen, searchOpen, toggleMobileMenu, toggleSearch, closeMobileMenu, language, setLanguage } =
     useUIStore();
   const [searchQuery, setSearchQuery] = useState('');
+
+  const toggleLanguage = () => {
+    setLanguage(language.code === 'en' ? LANGUAGES.dv : LANGUAGES.en);
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ export function Header() {
             <form onSubmit={handleSearch} className="flex w-full">
               <Input
                 type="search"
-                placeholder="Search news..."
+                placeholder={getTranslation('header.search', language)}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="rounded-r-none"
@@ -50,6 +55,19 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="flex items-center gap-2"
+            >
+              <Globe className="h-4 w-4" />
+              <span className="text-sm font-medium">
+                {language.code === 'en' ? 'DV' : 'EN'}
+              </span>
+            </Button>
+
             <Button
               variant="ghost"
               size="icon"
@@ -80,7 +98,7 @@ export function Header() {
             <form onSubmit={handleSearch} className="flex w-full">
               <Input
                 type="search"
-                placeholder="Search news..."
+                placeholder={getTranslation('header.search', language)}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="rounded-r-none"
@@ -102,7 +120,15 @@ export function Header() {
                 href="/"
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1"
               >
-                Home
+                {getTranslation('header.home', language)}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/elections"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1"
+              >
+                {getTranslation('header.elections', language)}
               </Link>
             </li>
             {categories.map((category) => (
@@ -111,7 +137,9 @@ export function Header() {
                   href={`/category/${category.slug}`}
                   className="text-sm font-medium text-foreground hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1"
                 >
-                  {category.name}
+                  {typeof category.name === 'object'
+                    ? category.name[language.code as keyof typeof category.name]
+                    : category.name}
                 </Link>
               </li>
             ))}
@@ -130,7 +158,16 @@ export function Header() {
                   onClick={closeMobileMenu}
                   className="block py-2 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  Home
+                  {getTranslation('header.home', language)}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/elections"
+                  onClick={closeMobileMenu}
+                  className="block py-2 text-sm font-medium text-foreground hover:text-primary"
+                >
+                  {getTranslation('header.elections', language)}
                 </Link>
               </li>
               {categories.map((category) => (
@@ -140,7 +177,9 @@ export function Header() {
                     onClick={closeMobileMenu}
                     className="block py-2 text-sm font-medium text-foreground hover:text-primary"
                   >
-                    {category.name}
+                    {typeof category.name === 'object'
+                      ? category.name[language.code as keyof typeof category.name]
+                      : category.name}
                   </Link>
                 </li>
               ))}

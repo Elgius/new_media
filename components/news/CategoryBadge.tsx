@@ -1,11 +1,16 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
 import { Category } from '@/lib/types';
+import { useUIStore } from '@/lib/stores/uiStore';
 
 interface CategoryBadgeProps {
   category: Category;
 }
 
 export function CategoryBadge({ category }: CategoryBadgeProps) {
+  const language = useUIStore((state) => state.language);
+
   return (
     <Badge
       variant="secondary"
@@ -15,7 +20,7 @@ export function CategoryBadge({ category }: CategoryBadgeProps) {
         color: 'white',
       }}
     >
-      {category.name}
+      {category.name[language.code]}
     </Badge>
   );
 }

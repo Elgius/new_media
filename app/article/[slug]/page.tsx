@@ -12,6 +12,7 @@ import { CategoryBadge } from '@/components/news/CategoryBadge';
 import { FeatureCard } from '@/components/news/FeatureCard';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { getArticleBySlug, getRelatedArticles } from '@/lib/mockData';
+import { useUIStore } from '@/lib/stores/uiStore';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -20,6 +21,7 @@ interface ArticlePageProps {
 export default function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = use(params);
   const article = getArticleBySlug(slug);
+  const language = useUIStore((state) => state.language);
 
   if (!article) {
     notFound();
@@ -37,16 +39,16 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            {article.title}
+            {article.title[language.code]}
           </h1>
 
           {article.subtitle && (
-            <p className="text-xl text-muted-foreground mb-6">{article.subtitle}</p>
+            <p className="text-xl text-muted-foreground mb-6">{article.subtitle[language.code]}</p>
           )}
 
           <div className="flex items-center justify-between flex-wrap gap-4 pb-6 border-b">
             <div className="flex items-center gap-4 text-sm">
-              <span className="font-medium">By {article.author}</span>
+              <span className="font-medium">By {article.author[language.code]}</span>
               <span className="text-muted-foreground">•</span>
               <time className="text-muted-foreground">
                 {format(article.publishedAt, 'MMMM dd, yyyy • h:mm a')}
@@ -79,14 +81,14 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 src={article.videoUrl}
                 className="w-full h-full"
                 allowFullScreen
-                title={article.title}
+                title={article.title[language.code]}
               />
             </div>
           ) : (
             <div className="relative w-full aspect-video rounded-lg overflow-hidden">
               <Image
                 src={article.coverImage}
-                alt={article.title}
+                alt={article.title[language.code]}
                 fill
                 className="object-cover"
                 priority
@@ -102,7 +104,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             {/* Article Body */}
             <div
               className="prose prose-lg max-w-none mb-8"
-              dangerouslySetInnerHTML={{ __html: article.body }}
+              dangerouslySetInnerHTML={{ __html: article.body[language.code] }}
             />
 
             {/* Inline Ad after content */}
@@ -112,12 +114,12 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             {article.tags && article.tags.length > 0 && (
               <div className="mb-8 pt-8 border-t">
                 <div className="flex flex-wrap gap-2">
-                  {article.tags.map((tag) => (
+                  {article.tags.map((tag, index) => (
                     <span
-                      key={tag}
+                      key={index}
                       className="px-3 py-1 bg-muted rounded-full text-sm text-muted-foreground"
                     >
-                      #{tag}
+                      #{tag[language.code]}
                     </span>
                   ))}
                 </div>
@@ -148,7 +150,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                     href={`/category/${article.category.slug}`}
                     className="text-primary hover:underline"
                   >
-                    {article.category.name}
+                    {article.category.name[language.code]}
                   </Link>
                 </h3>
                 <p className="text-sm text-muted-foreground">

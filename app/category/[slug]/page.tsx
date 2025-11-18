@@ -7,6 +7,7 @@ import { ArticleGrid } from '@/components/news/ArticleGrid';
 import { ArticleRow } from '@/components/news/ArticleRow';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { useArticleStore } from '@/lib/stores/articleStore';
+import { useUIStore } from '@/lib/stores/uiStore';
 import { getCategoryBySlug } from '@/lib/mockData';
 
 interface CategoryPageProps {
@@ -16,6 +17,7 @@ interface CategoryPageProps {
 export default function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = use(params);
   const { getArticlesByCategory } = useArticleStore();
+  const language = useUIStore((state) => state.language);
 
   const category = getCategoryBySlug(slug);
 
@@ -34,7 +36,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               className="inline-block px-4 py-2 rounded-lg text-white text-2xl font-bold"
               style={{ backgroundColor: category.color }}
             >
-              {category.name}
+              {category.name[language.code]}
             </div>
           </div>
           <p className="text-center text-muted-foreground py-12">
@@ -58,10 +60,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             className="inline-block px-6 py-3 rounded-lg text-white text-3xl font-bold mb-4"
             style={{ backgroundColor: category.color }}
           >
-            {category.name}
+            {category.name[language.code]}
           </div>
           <p className="text-muted-foreground">
-            Latest news and updates in {category.name.toLowerCase()}
+            Latest news and updates in {category.name[language.code].toLowerCase()}
           </p>
         </div>
 
@@ -85,7 +87,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {/* Articles List */}
           <div className="lg:col-span-2">
             <div className="mb-4 pb-3 border-b-2 border-primary">
-              <h2 className="text-2xl font-bold text-foreground">More in {category.name}</h2>
+              <h2 className="text-2xl font-bold text-foreground">More in {category.name[language.code]}</h2>
             </div>
 
             {listArticles.length > 0 ? (

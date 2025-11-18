@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { useUIStore } from '@/lib/stores/uiStore';
+import { getTranslation } from '@/lib/translations';
 
 export function Footer() {
+  const { language } = useUIStore();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -14,8 +19,7 @@ export function Footer() {
               News<span className="text-secondary">Hub</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Your trusted source for timely, accurate, and comprehensive news coverage.
-              Stay informed with stories that matter.
+              {getTranslation('footer.description', language)}
             </p>
             <div className="flex space-x-4">
               <a
@@ -51,14 +55,16 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
+            <h3 className="font-semibold text-foreground mb-4">
+              {getTranslation('footer.quickLinks', language)}
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/about"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  About Us
+                  {getTranslation('footer.aboutUs', language)}
                 </Link>
               </li>
               <li>
@@ -66,7 +72,7 @@ export function Footer() {
                   href="/contact"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Contact
+                  {getTranslation('footer.contact', language)}
                 </Link>
               </li>
               <li>
@@ -74,7 +80,7 @@ export function Footer() {
                   href="/privacy"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Privacy Policy
+                  {getTranslation('footer.privacy', language)}
                 </Link>
               </li>
               <li>
@@ -82,7 +88,7 @@ export function Footer() {
                   href="/terms"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Terms of Service
+                  {getTranslation('footer.terms', language)}
                 </Link>
               </li>
             </ul>
@@ -90,12 +96,14 @@ export function Footer() {
 
           {/* Newsletter (Placeholder) */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Stay Updated</h3>
+            <h3 className="font-semibold text-foreground mb-4">
+              {getTranslation('footer.stayUpdated', language)}
+            </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Subscribe to our newsletter for the latest news and updates.
+              {getTranslation('footer.newsletter', language)}
             </p>
             <div className="text-xs text-muted-foreground">
-              Newsletter coming soon
+              {getTranslation('footer.comingSoon', language)}
             </div>
           </div>
         </div>
@@ -104,10 +112,10 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} NewsHub. All rights reserved.
+              © {currentYear} NewsHub. {getTranslation('footer.rights', language)}
             </p>
             <p className="text-sm text-muted-foreground mt-2 md:mt-0">
-              Built with Next.js and TailwindCSS
+              {getTranslation('footer.builtWith', language)}
             </p>
           </div>
         </div>

@@ -1,15 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { Article } from '@/lib/types';
 import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
+import { useUIStore } from '@/lib/stores/uiStore';
 
 interface ArticleRowProps {
   article: Article;
 }
 
 export function ArticleRow({ article }: ArticleRowProps) {
+  const language = useUIStore((state) => state.language);
   return (
     <div className="group border-b pb-4 mb-4 last:border-0">
       <Link href={`/article/${article.slug}`} className="flex gap-4">
@@ -17,7 +21,7 @@ export function ArticleRow({ article }: ArticleRowProps) {
         <div className="relative w-32 h-24 flex-shrink-0 overflow-hidden rounded">
           <Image
             src={article.coverImage}
-            alt={article.title}
+            alt={article.title[language.code]}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
@@ -34,13 +38,13 @@ export function ArticleRow({ article }: ArticleRowProps) {
             <CategoryBadge category={article.category} />
           </div>
           <h3 className="text-base font-bold leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-2">
-            {article.title}
+            {article.title[language.code]}
           </h3>
           <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
-            {article.summary}
+            {article.summary[language.code]}
           </p>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span>{article.author}</span>
+            <span>{article.author[language.code]}</span>
             <span>•</span>
             <span>{formatDistanceToNow(article.publishedAt, { addSuffix: true })}</span>
           </div>

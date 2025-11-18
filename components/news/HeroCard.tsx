@@ -1,21 +1,25 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { Article } from '@/lib/types';
 import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
+import { useUIStore } from '@/lib/stores/uiStore';
 
 interface HeroCardProps {
   article: Article;
 }
 
 export function HeroCard({ article }: HeroCardProps) {
+  const language = useUIStore((state) => state.language);
   return (
     <Link href={`/article/${article.slug}`} className="group block relative">
       <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
         <Image
           src={article.coverImage}
-          alt={article.title}
+          alt={article.title[language.code]}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           priority
@@ -32,13 +36,13 @@ export function HeroCard({ article }: HeroCardProps) {
             <CategoryBadge category={article.category} />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-2 group-hover:text-secondary transition-colors">
-            {article.title}
+            {article.title[language.code]}
           </h1>
           {article.subtitle && (
-            <p className="text-lg text-gray-200 mb-2">{article.subtitle}</p>
+            <p className="text-lg text-gray-200 mb-2">{article.subtitle[language.code]}</p>
           )}
           <div className="flex items-center gap-4 text-sm text-gray-300">
-            <span>{article.author}</span>
+            <span>{article.author[language.code]}</span>
             <span>•</span>
             <span>{formatDistanceToNow(article.publishedAt, { addSuffix: true })}</span>
           </div>
