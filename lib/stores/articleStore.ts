@@ -19,6 +19,12 @@ interface ArticleStore {
   getArticleBySlug: (slug: string) => Article | undefined;
   getFeaturedArticles: () => Article[];
   searchArticles: (query: string) => Article[];
+
+  // Editor actions
+  createArticle: (article: Article) => void;
+  updateArticleStatus: (id: string, status: 'draft' | 'published') => void;
+  getDraftArticles: () => Article[];
+  getPublishedArticles: () => Article[];
 }
 
 export const useArticleStore = create<ArticleStore>((set, get) => ({
@@ -79,5 +85,30 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
 
       return titleMatch || summaryMatch || categoryMatch || authorMatch || tagsMatch;
     });
+  },
+
+  // Editor actions
+  createArticle: (article) => {
+    set((state) => ({
+      articles: [...state.articles, article],
+    }));
+  },
+
+  updateArticleStatus: (id, status) => {
+    set((state) => ({
+      articles: state.articles.map((article) =>
+        article.id === id ? { ...article, status } : article
+      ),
+    }));
+  },
+
+  getDraftArticles: () => {
+    const { articles } = get();
+    return articles.filter((article) => article.status === 'draft');
+  },
+
+  getPublishedArticles: () => {
+    const { articles } = get();
+    return articles.filter((article) => article.status === 'published' || !article.status);
   },
 }));

@@ -28,6 +28,7 @@ export interface Article {
   publishedAt: Date;
   updatedAt?: Date;
   featured?: boolean; // For hero/featured stories
+  status?: 'draft' | 'published'; // Article status for editor
   hasVideo?: boolean;
   videoUrl?: string;
   tags?: BilingualText[];
