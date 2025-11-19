@@ -73,8 +73,8 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
 
       // Search in bilingual author
       const authorMatch =
-        article.author.en.toLowerCase().includes(lowerQuery) ||
-        article.author.dv.toLowerCase().includes(lowerQuery);
+        article.author.name.en.toLowerCase().includes(lowerQuery) ||
+        article.author.name.dv.toLowerCase().includes(lowerQuery);
 
       // Search in bilingual tags
       const tagsMatch = article.tags?.some(

@@ -13,6 +13,7 @@ import { FeatureCard } from '@/components/news/FeatureCard';
 import { AdSlot } from '@/components/ads/AdSlot';
 import { getArticleBySlug, getRelatedArticles } from '@/lib/mockData';
 import { useUIStore } from '@/lib/stores/uiStore';
+import { getTranslation } from '@/lib/translations';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -48,10 +49,15 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
           <div className="flex items-center justify-between flex-wrap gap-4 pb-6 border-b">
             <div className="flex items-center gap-4 text-sm">
-              <span className="font-medium">By {article.author[language.code]}</span>
+              <span className="font-medium">
+                {getTranslation('article.by', language)}{' '}
+                <Link href={`/writers/${article.author.slug}`} className="hover:text-primary transition-colors">
+                  {article.author.name[language.code]}
+                </Link>
+              </span>
               <span className="text-muted-foreground">•</span>
               <time className="text-muted-foreground">
-                {format(article.publishedAt, 'MMMM dd, yyyy • h:mm a')}
+                {format(article.publishedAt, 'MMMM dd, yyyy • HH:mm')}
               </time>
             </div>
 

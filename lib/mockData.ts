@@ -3,7 +3,7 @@
  * This provides sample articles and categories for development
  */
 
-import { Article, Category } from './types';
+import { Article, Category, Author } from './types';
 
 // Categories
 export const categories: Category[] = [
@@ -36,6 +36,90 @@ export const categories: Category[] = [
 // Helper function to get category by slug
 export const getCategoryBySlug = (slug: string): Category | undefined => {
   return categories.find((cat) => cat.slug === slug);
+};
+
+// Authors
+export const authors: Author[] = [
+  {
+    id: '1',
+    slug: 'sarah-johnson',
+    name: { en: 'Sarah Johnson', dv: 'ސާރާ ޖޮންސަން' },
+    bio: {
+      en: 'Sarah Johnson is a senior political correspondent with over 10 years of experience covering national and international affairs. Her investigative reporting has earned her multiple journalism awards.',
+      dv: 'ސާރާ ޖޮންސަން އަކީ 10 އަހަރަށްވުރެ ގިނަ ދުވަސް ގައުމީ އަދި ބައިނަލްއަގުވާމީ ކަންކަމުގެ ރިޕޯޓު ކުރައްވާ ސިނިއަރ ސިޔާސީ ނޫސްވެރިއެކެވެ. އޭނާގެ ތަހުގީގީ ރިޕޯޓިންގަށް ގިނަ ނޫސްވެރިކަމުގެ އެވޯޑުތައް ލިބިފައިވެއެވެ.'
+    },
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+    socialLinks: {
+      twitter: 'https://twitter.com/sarahjohnson',
+      linkedin: 'https://linkedin.com/in/sarahjohnson',
+      email: 'sarah.johnson@newshub.com'
+    }
+  },
+  {
+    id: '2',
+    slug: 'ahmed-rahman',
+    name: { en: 'Ahmed Rahman', dv: 'އަހްމަދު ރަހްމާން' },
+    bio: {
+      en: 'Ahmed Rahman is a sports journalist passionate about football and athletics. He has covered major sporting events including national championships and regional tournaments for the past 8 years.',
+      dv: 'އަހްމަދު ރަހްމާން އަކީ ފުޓްބޯޅައާއި އެތުލެޓިކްސްއަށް ޝައުގުވެރިކަން ހުރި ކުޅިވަރު ނޫސްވެރިއެކެވެ. އޭނާ 8 އަހަރު ވަންދެން ގައުމީ ޗެމްޕިއަންޝިޕާއި ސަރަހައްދީ މުބާރާތްތަކުގެ ރިޕޯޓު ކުރައްވަމުން ގެންދަވައެވެ.'
+    },
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+    socialLinks: {
+      twitter: 'https://twitter.com/ahmedrahman',
+      facebook: 'https://facebook.com/ahmedrahman',
+      email: 'ahmed.rahman@newshub.com'
+    }
+  },
+  {
+    id: '3',
+    slug: 'michael-chen',
+    name: { en: 'Michael Chen', dv: 'މައިކަލް ޗެން' },
+    bio: {
+      en: 'Michael Chen specializes in business and technology reporting. With a background in economics and a keen interest in innovation, he brings deep insights into market trends and emerging technologies.',
+      dv: 'މައިކަލް ޗެން އަކީ ވިޔަފާރި އަދި ޓެކްނޮލޮޖީ ރިޕޯޓިންގައި ހާއްސަ ތަޖުރިބާ ލިބިފައިވާ ނޫސްވެރިއެކެވެ. އިގްތިސާދީ ފަންނުގެ ތަޖުރިބާ އޮތުމާއެކު ނަވީންކަރުމަށް ޝައުގުވެރިކަން ހުރުމުގެ ސަބަބުން މާކެޓް ޓްރެންޑްސް އަދި ނަވީން ޓެކްނޮލޮޖީތަކުގެ ފުންކޮށް ގިނަ މައުލޫމާތު ހިއްސާ ކުރައްވައެވެ.'
+    },
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400',
+    socialLinks: {
+      twitter: 'https://twitter.com/michaelchen',
+      linkedin: 'https://linkedin.com/in/michaelchen',
+      email: 'michael.chen@newshub.com'
+    }
+  },
+  {
+    id: '4',
+    slug: 'jennifer-williams',
+    name: { en: 'Jennifer Williams', dv: 'ޖެނިފަރ ވިލިއަމްސް' },
+    bio: {
+      en: 'Jennifer Williams is a community reporter dedicated to telling local stories that matter. She has been covering neighborhood news, cultural events, and grassroots initiatives for 6 years.',
+      dv: 'ޖެނިފަރ ވިލިއަމްސް އަކީ މުހިއްމު ލޯކަލް ވާހަކަތައް ކިޔައިދިނުމަށް ވަގުތު ހޭދަކުރައްވާ ކޮމިއުނިޓީ ރިޕޯޓަރެކެވެ. އޭނާ 6 އަހަރު ވަންދެން ސަރަހައްދީ ހަބަރުތަކާއި ސަގާފީ ހަރަކާތްތަކާއި ލޯކަލް ފެށުންތަކުގެ ރިޕޯޓު ކުރައްވަމުން ގެންދަވައެވެ.'
+    },
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+    socialLinks: {
+      twitter: 'https://twitter.com/jenniferwilliams',
+      facebook: 'https://facebook.com/jenniferwilliams',
+      email: 'jennifer.williams@newshub.com'
+    }
+  },
+  {
+    id: '5',
+    slug: 'robert-taylor',
+    name: { en: 'Robert Taylor', dv: 'ރޮބަރޓް ޓޭލާ' },
+    bio: {
+      en: 'Robert Taylor covers the business beat with a focus on startups, venture capital, and entrepreneurship. His in-depth analysis helps readers understand the evolving business landscape.',
+      dv: 'ރޮބަރޓް ޓޭލާ އަކީ ސްޓާރޓްއަޕް، ވެންޗަރ ކެޕިޓަލް، އަދި އެންޓަޕްރެނިއާޝިޕްއަށް ހާއްސަ ސަމާލުކަމެއް ދީގެން ވިޔަފާރި ހަބަރުތައް ރިޕޯޓު ކުރައްވާ ނޫސްވެރިއެކެވެ. އޭނާގެ ފުންކޮށް ދިރާސާކުރުމުގެ ސަބަބުން ވިޔަފާރީގެ ކުރިއަރަމުންދާ މަންޒަރު ރީޑަރުންނަށް ވިސްނައިދެއްވައެވެ.'
+    },
+    photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+    socialLinks: {
+      twitter: 'https://twitter.com/roberttaylor',
+      linkedin: 'https://linkedin.com/in/roberttaylor',
+      email: 'robert.taylor@newshub.com'
+    }
+  },
+];
+
+// Helper function to get author by slug
+export const getAuthorBySlug = (slug: string): Author | undefined => {
+  return authors.find((author) => author.slug === slug);
 };
 
 // Mock Articles
@@ -73,7 +157,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=1200',
     category: categories[0], // Politics
-    author: { en: 'Sarah Johnson', dv: 'ސާރާ ޖޮންސަން' },
+    author: authors[0], // Sarah Johnson,
     publishedAt: new Date('2024-01-15T10:30:00'),
     featured: true,
     tags: [
@@ -116,7 +200,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200',
     category: categories[1], // Sports
-    author: { en: 'Ahmed Rahman', dv: 'އަހްމަދު ރަހްމާން' },
+    author: authors[1], // Ahmed Rahman,
     publishedAt: new Date('2024-01-14T20:15:00'),
     featured: true,
     tags: [
@@ -159,7 +243,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200',
     category: categories[2], // Business
-    author: { en: 'Michael Chen', dv: 'މިވާއަލް ޗென' },
+    author: authors[2], // Michael Chen,
     publishedAt: new Date('2024-01-14T09:00:00'),
     featured: true,
     tags: [
@@ -202,7 +286,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200',
     category: categories[3], // Local
-    author: { en: 'Jennifer Williams', dv: 'ޖެނިފަރ ވިލިއިމސް' },
+    author: authors[3], // Jennifer Williams,
     publishedAt: new Date('2024-01-13T14:30:00'),
     tags: [
       { en: 'community', dv: 'ކުވެރިކަމަ' },
@@ -244,7 +328,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200',
     category: categories[2], // Business
-    author: { en: 'Robert Taylor', dv: 'ރޮބަރްޓް ޓེയްލާ' },
+    author: authors[4], // Robert Taylor,
     publishedAt: new Date('2024-01-13T11:00:00'),
     tags: [
       { en: 'startup', dv: 'ސްޓާރޓަޕ' },
@@ -287,7 +371,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200',
     category: categories[0], // Politics
-    author: { en: 'Sarah Johnson', dv: 'ސާރާ ޖޮންސަން' },
+    author: authors[0], // Sarah Johnson,
     publishedAt: new Date('2024-01-12T13:45:00'),
     tags: [
       { en: 'education', dv: 'ޝިކުވާ' },
@@ -329,7 +413,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=1200',
     category: categories[1], // Sports
-    author: { en: 'Ahmed Rahman', dv: 'އަހްމަދު ރަހްމާން' },
+    author: authors[1], // Ahmed Rahman,
     publishedAt: new Date('2024-01-12T18:20:00'),
     tags: [
       { en: 'swimming', dv: 'ވާވަގި' },
@@ -371,7 +455,7 @@ export const mockArticles: Article[] = [
     },
     coverImage: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200',
     category: categories[3], // Local
-    author: { en: 'Jennifer Williams', dv: 'ޖެނިފަރ ވިލިއިމސް' },
+    author: authors[3], // Jennifer Williams,
     publishedAt: new Date('2024-01-11T10:00:00'),
     tags: [
       { en: 'arts', dv: 'އާރްޓް' },

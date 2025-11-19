@@ -74,7 +74,7 @@ export const translations = {
 
   // Article page
   article: {
-    by: { en: 'By', dv: 'ލިޔުއްވީ' } as BilingualText,
+    by: { en: 'By', dv: 'ލިޔުނީ' } as BilingualText,
     share: { en: 'Share:', dv: 'ހިއްސާކުރައްވާ:' } as BilingualText,
     relatedArticles: { en: 'Related Articles', dv: 'ގުޅުންހުރި ލިޔުންތައް' } as BilingualText,
     stayInformed: { en: 'Stay Informed', dv: 'ހަބަރުތައް ލިބިވަޑައިގަންނަވާ' } as BilingualText,

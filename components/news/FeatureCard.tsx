@@ -8,6 +8,7 @@ import { Article } from '@/lib/types';
 import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
 import { useUIStore } from '@/lib/stores/uiStore';
+import { removeTimeApproximations } from '@/lib/utils';
 
 interface FeatureCardProps {
   article: Article;
@@ -43,7 +44,7 @@ export function FeatureCard({ article }: FeatureCardProps) {
             {article.summary[language.code]}
           </p>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span>{formatDistanceToNow(article.publishedAt, { addSuffix: true })}</span>
+            <span>{removeTimeApproximations(formatDistanceToNow(article.publishedAt, { addSuffix: true }))}</span>
           </div>
         </CardContent>
       </Link>

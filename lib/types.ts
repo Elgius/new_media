@@ -15,6 +15,20 @@ export interface Category {
   color: string; // Hex color for category badge
 }
 
+export interface Author {
+  id: string;
+  slug: string;
+  name: BilingualText;
+  bio: BilingualText;
+  photo: string;
+  socialLinks?: {
+    twitter?: string;
+    linkedin?: string;
+    facebook?: string;
+    email?: string;
+  };
+}
+
 export interface Article {
   id: string;
   slug: string;
@@ -24,7 +38,7 @@ export interface Article {
   body: BilingualText;
   coverImage: string;
   category: Category;
-  author: BilingualText;
+  author: Author;
   publishedAt: Date;
   updatedAt?: Date;
   featured?: boolean; // For hero/featured stories
