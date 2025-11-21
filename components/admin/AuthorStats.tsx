@@ -1,11 +1,10 @@
 'use client';
 
 import { StatCard } from './StatCard';
-import { Users, Award, UserPlus, BarChart3 } from 'lucide-react';
+import { Users, Award, UserPlus } from 'lucide-react';
 
 interface AuthorStatsProps {
   totalAuthors: number;
-  activeAuthors: number;
   topContributor: {
     author: { name: { en: string } } | null;
     articleCount: number;
@@ -16,7 +15,6 @@ interface AuthorStatsProps {
 
 export function AuthorStats({
   totalAuthors,
-  activeAuthors,
   topContributor,
   recentlyAddedCount,
   averageArticlesPerAuthor,
@@ -33,11 +31,6 @@ export function AuthorStats({
         icon={Users}
       />
       <StatCard
-        title="Active Authors"
-        value={activeAuthors}
-        icon={Users}
-      />
-      <StatCard
         title="Top Contributor"
         value={topContributorDisplay}
         icon={Award}
@@ -46,6 +39,11 @@ export function AuthorStats({
         title="Recently Added"
         value={recentlyAddedCount}
         icon={UserPlus}
+      />
+      <StatCard
+        title="Average Articles"
+        value={averageArticlesPerAuthor}
+        icon={Users}
       />
     </div>
   );

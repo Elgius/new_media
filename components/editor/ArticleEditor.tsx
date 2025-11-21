@@ -98,6 +98,8 @@ export function ArticleEditor() {
       name: { en: authorEn, dv: authorDv },
       bio: { en: '', dv: '' },
       photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      createdAt: new Date(),
+      isDeleted: false,
     };
 
     const newArticle: Article = {
@@ -159,6 +161,8 @@ export function ArticleEditor() {
         name: { en: authorEn, dv: authorDv },
         bio: { en: '', dv: '' },
         photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+        createdAt: new Date(),
+        isDeleted: false,
       }
     : undefined;
 

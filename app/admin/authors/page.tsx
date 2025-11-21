@@ -102,7 +102,6 @@ export default function AuthorsPage() {
       {/* Stats */}
       <AuthorStats
         totalAuthors={stats.totalAuthors}
-        activeAuthors={stats.activeAuthors}
         topContributor={stats.topContributor}
         recentlyAddedCount={stats.recentlyAddedCount}
         averageArticlesPerAuthor={stats.averageArticlesPerAuthor}

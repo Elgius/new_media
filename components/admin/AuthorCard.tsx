@@ -38,8 +38,8 @@ export function AuthorCard({ author, articleCount, onDelete, onRestore }: Author
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
 
-  const name = author.name[language];
-  const bio = author.bio[language];
+  const name = author.name[language.code];
+  const bio = author.bio[language.code];
 
   // Truncate bio to 2 lines (approximately 100 characters)
   const truncatedBio = bio.length > 100 ? bio.substring(0, 100) + '...' : bio;

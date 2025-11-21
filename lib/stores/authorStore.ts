@@ -3,7 +3,7 @@
  */
 
 import { create } from 'zustand';
-import { Author, BilingualText } from '../types';
+import { Author } from '../types';
 import { authors as mockAuthors } from '../mockData';
 import { startOfMonth } from 'date-fns';
 
