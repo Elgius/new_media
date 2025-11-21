@@ -88,6 +88,18 @@ export function ArticleEditor() {
     // Create article object
     // eslint-disable-next-line react-hooks/purity -- Event handler, not render function
     const articleId = `article-${Date.now()}`;
+    // eslint-disable-next-line react-hooks/purity -- Event handler, not render function
+    const authorId = `author-${Date.now()}`;
+
+    // Create a temporary author object (will be replaced with proper author selection in Phase 2)
+    const tempAuthor = {
+      id: authorId,
+      slug: slugify(authorEn, { lower: true, strict: true }),
+      name: { en: authorEn, dv: authorDv },
+      bio: { en: '', dv: '' },
+      photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+    };
+
     const newArticle: Article = {
       id: articleId,
       slug: slug || slugify(titleEn, { lower: true, strict: true }),
@@ -97,7 +109,7 @@ export function ArticleEditor() {
       body: { en: bodyEn, dv: bodyDv },
       coverImage,
       category: selectedCategory,
-      author: { en: authorEn, dv: authorDv },
+      author: tempAuthor,
       publishedAt: new Date(),
       featured,
       status: publishNow ? 'published' : 'draft',
@@ -140,6 +152,16 @@ export function ArticleEditor() {
   };
 
   // Preview article object
+  const previewAuthor = authorEn
+    ? {
+        id: 'preview-author',
+        slug: 'preview-author',
+        name: { en: authorEn, dv: authorDv },
+        bio: { en: '', dv: '' },
+        photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      }
+    : undefined;
+
   const previewArticle: Partial<Article> = {
     title: { en: titleEn, dv: titleDv },
     subtitle: subtitleEn || subtitleDv ? { en: subtitleEn, dv: subtitleDv } : undefined,
@@ -147,7 +169,7 @@ export function ArticleEditor() {
     body: { en: bodyEn, dv: bodyDv },
     coverImage,
     category: selectedCategory || undefined,
-    author: { en: authorEn, dv: authorDv },
+    author: previewAuthor,
     publishedAt: new Date(),
     hasVideo: !!videoUrl,
     videoUrl: videoUrl || undefined,

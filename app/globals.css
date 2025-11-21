@@ -149,6 +149,14 @@
   [lang="dv"] {
     font-family: 'Mv Iyyu Formal', sans-serif;
     line-height: 1.8; /* Better readability for Thaana script */
+    font-size: 1.15em; /* 15% larger for better readability */
+  }
+
+  /* Increase Dhivehi font size further on desktop screens */
+  @media (min-width: 768px) {
+    [lang="dv"] {
+      font-size: 1.2em; /* 20% larger on tablets and desktops */
+    }
   }
 
   /* RTL layout support */
@@ -162,5 +170,54 @@
 
   [dir="rtl"] .text-right {
     text-align: left;
+  }
+
+  /* Prose typography styling for article content */
+  .prose {
+    color: var(--foreground);
+  }
+
+  .prose :where(p):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  .prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+    font-weight: 700;
+  }
+
+  .prose :where(strong):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  .prose :where(a):not(:where([class~="not-prose"] *)) {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .prose :where(a):hover:not(:where([class~="not-prose"] *)) {
+    color: var(--secondary);
+  }
+
+  .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+    border-left-color: var(--border);
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+    background-color: var(--muted);
+  }
+
+  .prose :where(ul, ol):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
+  }
+
+  .prose :where(li):not(:where([class~="not-prose"] *)) {
+    color: var(--foreground);
   }
 }

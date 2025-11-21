@@ -14,6 +14,8 @@ import { AdSlot } from '@/components/ads/AdSlot';
 import { getArticleBySlug, getRelatedArticles } from '@/lib/mockData';
 import { useUIStore } from '@/lib/stores/uiStore';
 import { getTranslation } from '@/lib/translations';
+import { ReactionBar } from '@/components/engagement/ReactionBar';
+import { CommentsSection } from '@/components/engagement/CommentsSection';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -79,39 +81,46 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </div>
 
-        {/* Cover Image or Video */}
-        <div className="max-w-5xl mx-auto mb-8">
-          {article.hasVideo && article.videoUrl ? (
-            <div className="aspect-video rounded-lg overflow-hidden bg-black">
-              <iframe
-                src={article.videoUrl}
-                className="w-full h-full"
-                allowFullScreen
-                title={article.title[language.code]}
-              />
-            </div>
-          ) : (
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-              <Image
-                src={article.coverImage}
-                alt={article.title[language.code]}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-        </div>
-
         {/* Article Content + Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Main Content */}
           <div className="lg:col-span-2">
+            {/* Cover Image or Video */}
+            <div className="mb-8">
+              {article.hasVideo && article.videoUrl ? (
+                <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                  <iframe
+                    src={article.videoUrl}
+                    className="w-full h-full"
+                    allowFullScreen
+                    title={article.title[language.code]}
+                  />
+                </div>
+              ) : (
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+                  <Image
+                    src={article.coverImage}
+                    alt={article.title[language.code]}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              )}
+            </div>
+
             {/* Article Body */}
             <div
               className="prose prose-lg max-w-none mb-8"
               dangerouslySetInnerHTML={{ __html: article.body[language.code] }}
             />
+
+            {/* Reactions Bar */}
+            {article.reactions && (
+              <div className="mb-8 pb-8 border-b">
+                <ReactionBar reactions={article.reactions} />
+              </div>
+            )}
 
             {/* Inline Ad after content */}
             <AdSlot slot={{ size: 'inline' }} className="my-8" />
@@ -129,6 +138,13 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                     </span>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Comments Section */}
+            {article.comments && (
+              <div className="mb-12 pt-8 border-t">
+                <CommentsSection comments={article.comments} />
               </div>
             )}
 

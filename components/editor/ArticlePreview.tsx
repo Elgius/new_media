@@ -26,7 +26,7 @@ export function ArticlePreview({ article }: ArticlePreviewProps) {
   const subtitle = article.subtitle?.[language.code] || '';
   const summary = article.summary?.[language.code] || '';
   const body = article.body?.[language.code] || '';
-  const author = article.author?.[language.code] || '';
+  const author = article.author?.name?.[language.code] || article.author?.name?.en || '';
 
   return (
     <div className="space-y-6">

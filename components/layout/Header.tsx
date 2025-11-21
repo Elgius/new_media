@@ -7,13 +7,21 @@ import { Input } from '@/components/ui/input';
 import { useArticleStore } from '@/lib/stores/articleStore';
 import { useUIStore, LANGUAGES } from '@/lib/stores/uiStore';
 import { getTranslation } from '@/lib/translations';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function Header() {
   const { categories } = useArticleStore();
   const { mobileMenuOpen, searchOpen, toggleMobileMenu, toggleSearch, closeMobileMenu, language, setLanguage } =
     useUIStore();
   const [searchQuery, setSearchQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  // Avoid hydration mismatch by only rendering language-dependent content after mount
+  // This is an acceptable use of setState in useEffect for hydration handling
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   const toggleLanguage = () => {
     setLanguage(language.code === 'en' ? LANGUAGES.dv : LANGUAGES.en);
@@ -42,7 +50,7 @@ export function Header() {
             <form onSubmit={handleSearch} className="flex w-full">
               <Input
                 type="search"
-                placeholder={getTranslation('header.search', language)}
+                placeholder={mounted ? getTranslation('header.search', language) : 'Search news...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="rounded-r-none"
@@ -63,8 +71,8 @@ export function Header() {
               className="flex items-center gap-2"
             >
               <Globe className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                {language.code === 'en' ? 'DV' : 'EN'}
+              <span className="text-sm font-medium" suppressHydrationWarning>
+                {mounted ? (language.code === 'en' ? 'DV' : 'EN') : 'DV'}
               </span>
             </Button>
 
@@ -98,7 +106,7 @@ export function Header() {
             <form onSubmit={handleSearch} className="flex w-full">
               <Input
                 type="search"
-                placeholder={getTranslation('header.search', language)}
+                placeholder={mounted ? getTranslation('header.search', language) : 'Search news...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="rounded-r-none"
@@ -120,7 +128,9 @@ export function Header() {
                 href="/"
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1"
               >
-                {getTranslation('header.home', language)}
+                <span suppressHydrationWarning>
+                  {mounted ? getTranslation('header.home', language) : 'Home'}
+                </span>
               </Link>
             </li>
             <li>
@@ -128,7 +138,9 @@ export function Header() {
                 href="/elections"
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1"
               >
-                {getTranslation('header.elections', language)}
+                <span suppressHydrationWarning>
+                  {mounted ? getTranslation('header.elections', language) : 'Elections'}
+                </span>
               </Link>
             </li>
             {categories.map((category) => (
@@ -158,7 +170,9 @@ export function Header() {
                   onClick={closeMobileMenu}
                   className="block py-2 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  {getTranslation('header.home', language)}
+                  <span suppressHydrationWarning>
+                    {mounted ? getTranslation('header.home', language) : 'Home'}
+                  </span>
                 </Link>
               </li>
               <li>
@@ -167,7 +181,9 @@ export function Header() {
                   onClick={closeMobileMenu}
                   className="block py-2 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  {getTranslation('header.elections', language)}
+                  <span suppressHydrationWarning>
+                    {mounted ? getTranslation('header.elections', language) : 'Elections'}
+                  </span>
                 </Link>
               </li>
               {categories.map((category) => (

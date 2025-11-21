@@ -3,14 +3,12 @@
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Twitter, Linkedin, Facebook, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArticleRow } from '@/components/news/ArticleRow';
 import { getAuthorBySlug, mockArticles } from '@/lib/mockData';
 import { useUIStore } from '@/lib/stores/uiStore';
-import { Article } from '@/lib/types';
 
 interface WriterPageProps {
   params: Promise<{ slug: string }>;

@@ -8,6 +8,7 @@ import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
 import { useUIStore } from '@/lib/stores/uiStore';
 import { removeTimeApproximations } from '@/lib/utils';
+import { EngagementStats } from '@/components/engagement/EngagementStats';
 
 interface HeroCardProps {
   article: Article;
@@ -53,6 +54,14 @@ export function HeroCard({ article }: HeroCardProps) {
           </Link>
           <span>•</span>
           <span>{removeTimeApproximations(formatDistanceToNow(article.publishedAt, { addSuffix: true }))}</span>
+        </div>
+        <div className="mt-3 pointer-events-auto">
+          <EngagementStats
+            reactions={article.reactions}
+            comments={article.comments}
+            variant="compact"
+            className="text-gray-300"
+          />
         </div>
       </div>
     </div>

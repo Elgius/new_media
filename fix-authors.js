@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 
 let content = fs.readFileSync('lib/mockData.ts', 'utf8');

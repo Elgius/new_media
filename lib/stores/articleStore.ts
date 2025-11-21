@@ -3,8 +3,9 @@
  */
 
 import { create } from 'zustand';
-import { Article, Category } from '../types';
+import { Article, Category, DashboardStats } from '../types';
 import { mockArticles, categories } from '../mockData';
+import { startOfWeek, startOfMonth, isAfter, isWithinInterval } from 'date-fns';
 
 interface ArticleStore {
   articles: Article[];
@@ -17,14 +18,27 @@ interface ArticleStore {
   setSearchQuery: (query: string) => void;
   getArticlesByCategory: (slug: string) => Article[];
   getArticleBySlug: (slug: string) => Article | undefined;
+  getArticleById: (id: string) => Article | undefined;
   getFeaturedArticles: () => Article[];
   searchArticles: (query: string) => Article[];
 
   // Editor actions
   createArticle: (article: Article) => void;
-  updateArticleStatus: (id: string, status: 'draft' | 'published') => void;
+  updateArticle: (id: string, updates: Partial<Article>) => void;
+  deleteArticle: (id: string) => void;
+  updateArticleStatus: (id: string, status: 'draft' | 'published' | 'scheduled') => void;
   getDraftArticles: () => Article[];
   getPublishedArticles: () => Article[];
+  getScheduledArticles: () => Article[];
+
+  // Admin actions
+  bulkUpdateStatus: (ids: string[], status: 'draft' | 'published' | 'scheduled') => void;
+  bulkDelete: (ids: string[]) => void;
+  getArticlesByDateRange: (start: Date, end: Date) => Article[];
+  getDashboardStats: () => DashboardStats;
+
+  // Category management
+  reassignCategoryForArticles: (articleIds: string[], newCategoryId: string) => void;
 }
 
 export const useArticleStore = create<ArticleStore>((set, get) => ({
@@ -94,6 +108,25 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
     }));
   },
 
+  getArticleById: (id) => {
+    const { articles } = get();
+    return articles.find((article) => article.id === id);
+  },
+
+  updateArticle: (id, updates) => {
+    set((state) => ({
+      articles: state.articles.map((article) =>
+        article.id === id ? { ...article, ...updates, lastEditedAt: new Date() } : article
+      ),
+    }));
+  },
+
+  deleteArticle: (id) => {
+    set((state) => ({
+      articles: state.articles.filter((article) => article.id !== id),
+    }));
+  },
+
   updateArticleStatus: (id, status) => {
     set((state) => ({
       articles: state.articles.map((article) =>
@@ -110,5 +143,112 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
   getPublishedArticles: () => {
     const { articles } = get();
     return articles.filter((article) => article.status === 'published' || !article.status);
+  },
+
+  getScheduledArticles: () => {
+    const { articles } = get();
+    return articles.filter((article) => article.status === 'scheduled' && article.scheduledFor);
+  },
+
+  // Admin actions
+  bulkUpdateStatus: (ids, status) => {
+    set((state) => ({
+      articles: state.articles.map((article) =>
+        ids.includes(article.id) ? { ...article, status } : article
+      ),
+    }));
+  },
+
+  bulkDelete: (ids) => {
+    set((state) => ({
+      articles: state.articles.filter((article) => !ids.includes(article.id)),
+    }));
+  },
+
+  getArticlesByDateRange: (start, end) => {
+    const { articles } = get();
+    return articles.filter((article) => {
+      const date = article.scheduledFor || article.publishedAt;
+      return isWithinInterval(date, { start, end });
+    });
+  },
+
+  getDashboardStats: () => {
+    const { articles, categories } = get();
+    const now = new Date();
+    const weekStart = startOfWeek(now);
+    const monthStart = startOfMonth(now);
+
+    const totalArticles = articles.length;
+    const publishedArticles = articles.filter(
+      (a) => a.status === 'published' || !a.status
+    ).length;
+    const draftArticles = articles.filter((a) => a.status === 'draft').length;
+    const scheduledArticles = articles.filter((a) => a.status === 'scheduled').length;
+
+    const articlesThisWeek = articles.filter((article) => {
+      const date = article.publishedAt;
+      return isAfter(date, weekStart);
+    }).length;
+
+    const articlesThisMonth = articles.filter((article) => {
+      const date = article.publishedAt;
+      return isAfter(date, monthStart);
+    }).length;
+
+    const categoryBreakdown = categories.map((category) => ({
+      category: category.name.en,
+      count: articles.filter((a) => a.category.id === category.id).length,
+      color: category.color,
+    }));
+
+    // Calculate engagement metrics
+    const totalComments = articles.reduce((sum, article) => {
+      return sum + (article.comments?.length || 0);
+    }, 0);
+
+    const totalReactions = articles.reduce((sum, article) => {
+      if (!article.reactions) return sum;
+      return (
+        sum +
+        article.reactions.like +
+        article.reactions.love +
+        article.reactions.haha +
+        article.reactions.wow +
+        article.reactions.sad +
+        article.reactions.angry
+      );
+    }, 0);
+
+    return {
+      totalArticles,
+      publishedArticles,
+      draftArticles,
+      scheduledArticles,
+      articlesThisWeek,
+      articlesThisMonth,
+      totalComments,
+      totalReactions,
+      categoryBreakdown,
+    };
+  },
+
+  // Category management
+  reassignCategoryForArticles: (articleIds, newCategoryId) => {
+    const { categories } = get();
+    const newCategory = categories.find((c) => c.id === newCategoryId);
+
+    if (!newCategory) {
+      console.error(`Category with ID ${newCategoryId} not found`);
+      return;
+    }
+
+    set((state) => ({
+      articles: state.articles.map((article) =>
+        articleIds.includes(article.id)
+          ? { ...article, category: newCategory, lastEditedAt: new Date() }
+          : article
+      ),
+    }));
   },
 }));

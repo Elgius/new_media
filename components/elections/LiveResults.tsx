@@ -15,6 +15,21 @@ interface LiveResultsProps {
 type SortField = 'name' | 'party' | 'votes' | 'percentage';
 type SortDirection = 'asc' | 'desc';
 
+interface SortIconProps {
+  field: SortField;
+  sortField: SortField;
+  sortDirection: SortDirection;
+}
+
+function SortIcon({ field, sortField, sortDirection }: SortIconProps) {
+  if (sortField !== field) return null;
+  return sortDirection === 'asc' ? (
+    <TrendingUp className="h-4 w-4 inline ml-1" />
+  ) : (
+    <TrendingDown className="h-4 w-4 inline ml-1" />
+  );
+}
+
 export function LiveResults({ race }: LiveResultsProps) {
   const { language } = useUIStore();
   const [sortField, setSortField] = useState<SortField>('percentage');
@@ -50,15 +65,6 @@ export function LiveResults({ race }: LiveResultsProps) {
     return sortDirection === 'asc' ? comparison : -comparison;
   });
 
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return null;
-    return sortDirection === 'asc' ? (
-      <TrendingUp className="h-4 w-4 inline ml-1" />
-    ) : (
-      <TrendingDown className="h-4 w-4 inline ml-1" />
-    );
-  };
-
   return (
     <Card className="p-6">
       {/* Header */}
@@ -83,7 +89,7 @@ export function LiveResults({ race }: LiveResultsProps) {
                   className="hover:text-primary transition-colors"
                 >
                   {getTranslation('elections.table.candidate', language)}
-                  <SortIcon field="name" />
+                  <SortIcon field="name" sortField={sortField} sortDirection={sortDirection} />
                 </button>
               </th>
               <th className="text-left py-3 px-2 font-semibold text-foreground">
@@ -92,7 +98,7 @@ export function LiveResults({ race }: LiveResultsProps) {
                   className="hover:text-primary transition-colors"
                 >
                   {getTranslation('elections.table.party', language)}
-                  <SortIcon field="party" />
+                  <SortIcon field="party" sortField={sortField} sortDirection={sortDirection} />
                 </button>
               </th>
               <th className="text-right py-3 px-2 font-semibold text-foreground">
@@ -101,7 +107,7 @@ export function LiveResults({ race }: LiveResultsProps) {
                   className="hover:text-primary transition-colors"
                 >
                   {getTranslation('elections.table.votes', language)}
-                  <SortIcon field="votes" />
+                  <SortIcon field="votes" sortField={sortField} sortDirection={sortDirection} />
                 </button>
               </th>
               <th className="text-right py-3 px-2 font-semibold text-foreground">
@@ -110,7 +116,7 @@ export function LiveResults({ race }: LiveResultsProps) {
                   className="hover:text-primary transition-colors"
                 >
                   {getTranslation('elections.table.percentage', language)}
-                  <SortIcon field="percentage" />
+                  <SortIcon field="percentage" sortField={sortField} sortDirection={sortDirection} />
                 </button>
               </th>
             </tr>

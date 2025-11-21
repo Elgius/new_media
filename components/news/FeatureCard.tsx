@@ -9,6 +9,7 @@ import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
 import { useUIStore } from '@/lib/stores/uiStore';
 import { removeTimeApproximations } from '@/lib/utils';
+import { EngagementStats } from '@/components/engagement/EngagementStats';
 
 interface FeatureCardProps {
   article: Article;
@@ -43,8 +44,14 @@ export function FeatureCard({ article }: FeatureCardProps) {
           <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
             {article.summary[language.code]}
           </p>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
             <span>{removeTimeApproximations(formatDistanceToNow(article.publishedAt, { addSuffix: true }))}</span>
+            <EngagementStats
+              reactions={article.reactions}
+              comments={article.comments}
+              variant="compact"
+              className="text-xs"
+            />
           </div>
         </CardContent>
       </Link>

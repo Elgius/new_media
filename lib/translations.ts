@@ -157,22 +157,6 @@ export const translations = {
   },
 };
 
-// Type for nested translation keys
-type TranslationKey =
-  | `header.${keyof typeof translations.header}`
-  | `footer.${keyof typeof translations.footer}`
-  | `home.${keyof typeof translations.home}`
-  | `category.${keyof typeof translations.category}`
-  | `article.${keyof typeof translations.article}`
-  | `common.${keyof typeof translations.common}`
-  | `elections.${keyof typeof translations.elections}`
-  | `elections.raceType.${keyof typeof translations.elections.raceType}`
-  | `elections.filter.${keyof typeof translations.elections.filter}`
-  | `elections.table.${keyof typeof translations.elections.table}`
-  | `elections.map.${keyof typeof translations.elections.map}`
-  | `elections.raceTypes.${keyof typeof translations.elections.raceTypes}`
-  | `time.${keyof typeof translations.time}`;
-
 /**
  * Get translation for a given key in the current language
  * @param key - Translation key (e.g., 'header.search', 'footer.aboutUs')
@@ -182,6 +166,7 @@ type TranslationKey =
 export function getTranslation(key: string, language: { code: 'en' | 'dv' } | 'en' | 'dv'): string {
   const languageCode = typeof language === 'string' ? language : language.code;
   const keys = key.split('.');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = translations;
 
   for (const k of keys) {

@@ -8,6 +8,7 @@ import { CategoryBadge } from './CategoryBadge';
 import { Video } from 'lucide-react';
 import { useUIStore } from '@/lib/stores/uiStore';
 import { removeTimeApproximations } from '@/lib/utils';
+import { EngagementStats } from '@/components/engagement/EngagementStats';
 
 interface ArticleRowProps {
   article: Article;
@@ -52,6 +53,12 @@ export function ArticleRow({ article }: ArticleRowProps) {
             </Link>
             <span>•</span>
             <span>{removeTimeApproximations(formatDistanceToNow(article.publishedAt, { addSuffix: true }))}</span>
+            <EngagementStats
+              reactions={article.reactions}
+              comments={article.comments}
+              variant="compact"
+              className="ml-auto text-xs"
+            />
           </div>
         </div>
       </div>

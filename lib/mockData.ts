@@ -5,31 +5,113 @@
 
 import { Article, Category, Author } from './types';
 
-// Categories
+// Categories with full metadata
 export const categories: Category[] = [
+  // Default category for uncategorized articles (hidden from public)
+  {
+    id: 'uncategorized',
+    name: { en: 'Uncategorized', dv: 'ކެޓަގަރީ ނެތް' },
+    slug: 'uncategorized',
+    color: '#6B7280',
+    parentId: null,
+    description: {
+      en: 'Articles that have not been assigned to a specific category',
+      dv: 'ކެޓަގަރީއަކަށް ބަހައްޓާފައި ނުވާ ލިޔުންތައް'
+    },
+    icon: '📋',
+    order: 999,
+    isActive: false, // Hidden from public
+    isSpecial: false,
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
+  },
+  // Main categories
   {
     id: '1',
     name: { en: 'Politics', dv: 'ސިޔާސަތު' },
     slug: 'politics',
     color: '#0F8A2F',
+    parentId: null,
+    description: {
+      en: 'Political news, government policies, and legislative updates',
+      dv: 'ސިޔާސީ ހަބަރުތަކާއި ސަރުކާރުގެ ސިޔާސަތުތަކާއި ގާނޫނީ މައުލޫމާތު'
+    },
+    icon: '🏛️',
+    order: 0,
+    isActive: true,
+    isSpecial: false,
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
   },
   {
     id: '2',
     name: { en: 'Sports', dv: 'ކުޅިވަރު' },
     slug: 'sports',
     color: '#40B657',
+    parentId: null,
+    description: {
+      en: 'Sports news, matches, tournaments, and athlete profiles',
+      dv: 'ކުޅިވަރު ހަބަރުތަކާއި މެޗުތަކާއި މުބާރާތްތަކާއި ކުޅުންތެރިންގެ މައުލޫމާތު'
+    },
+    icon: '⚽',
+    order: 1,
+    isActive: true,
+    isSpecial: false,
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
   },
   {
     id: '3',
     name: { en: 'Business', dv: 'ވިޔަފާރި' },
     slug: 'business',
     color: '#1A5D2F',
+    parentId: null,
+    description: {
+      en: 'Business news, market trends, startups, and economic analysis',
+      dv: 'ވިޔަފާރީގެ ހަބަރުތަކާއި މާކެޓް ޓްރެންޑްސް އަދި އިގްތިސާދީ ތަހުލީލު'
+    },
+    icon: '💼',
+    order: 2,
+    isActive: true,
+    isSpecial: false,
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
   },
   {
     id: '4',
     name: { en: 'Local', dv: 'ލޯކަލް' },
     slug: 'local',
     color: '#2DA84A',
+    parentId: null,
+    description: {
+      en: 'Local community news, events, and cultural happenings',
+      dv: 'ލޯކަލް ކޮމިއުނިޓީގެ ހަބަރުތަކާއި ހަރަކާތްތަކާއި ސަގާފީ ހަރަކާތްތައް'
+    },
+    icon: '🏘️',
+    order: 3,
+    isActive: true,
+    isSpecial: false,
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
+  },
+  // Special category for Elections with custom page
+  {
+    id: 'elections',
+    name: { en: 'Elections', dv: 'އިންތިހާބު' },
+    slug: 'elections',
+    color: '#DC2626',
+    parentId: null,
+    description: {
+      en: 'Live election coverage, results, and political race analysis',
+      dv: 'އިންތިހާބުގެ ލައިވް ކަވަރޭޖާއި ނަތީޖާއާއި ސިޔާސީ ތަހުލީލު'
+    },
+    icon: '🗳️',
+    order: 4,
+    isActive: true,
+    isSpecial: true,
+    specialPageRoute: '/elections',
+    createdAt: new Date('2024-01-01T00:00:00'),
+    updatedAt: new Date('2024-01-01T00:00:00'),
   },
 ];
 
@@ -166,6 +248,56 @@ export const mockArticles: Article[] = [
       { en: 'environment', dv: 'ތިމާވެއްޓަ' },
     ],
     relatedArticles: ['2', '4'],
+    reactions: {
+      like: 342,
+      love: 189,
+      haha: 12,
+      wow: 256,
+      sad: 8,
+      angry: 5,
+    },
+    comments: [
+      {
+        id: 'c1-1',
+        articleId: '1',
+        author: { name: 'Ahmed Ali', avatar: 'https://i.pravatar.cc/150?img=12' },
+        content: {
+          en: 'This is a huge step forward for our country! Finally, we are taking climate change seriously.',
+          dv: 'މިއީ ގައުމަށް ވަރަށް ބޮޑު ފިޔަވަޅެއް! ފަހުން އަޅުގަނޑުމެން މޫސުމީ ބަދަލުތައް ސީރިއަސްކޮށް ބަލަނީ.'
+        },
+        timestamp: new Date('2024-01-15T11:15:00'),
+      },
+      {
+        id: 'c1-2',
+        articleId: '1',
+        author: { name: 'Maria Santos', avatar: 'https://i.pravatar.cc/150?img=47' },
+        content: {
+          en: 'I hope this legislation comes with proper enforcement mechanisms. Laws are only as good as their implementation.',
+          dv: 'އުންމީދުކުރަން މި ގާނޫނާއެކު ތަންފީޒުކުރުމުގެ ރަނގަޅު ނިޒާމެއް އައުމަށް. ގާނޫނުތައް ރަނގަޅީ ތަންފީޒުކުރާ ގޮތަށް.'
+        },
+        timestamp: new Date('2024-01-15T12:30:00'),
+      },
+      {
+        id: 'c1-3',
+        articleId: '1',
+        author: { name: 'John Patterson', avatar: 'https://i.pravatar.cc/150?img=33' },
+        content: {
+          en: 'Great news! But we need more details on how this will affect businesses and job creation.',
+          dv: 'އުފާވެރި ހަބަރެއް! އެކަމަކު މިއީ ވިޔަފާރިތަކަށާއި ވަޒީފާ ހޯދުމަށް ކިހާ އަސަރެއް ކުރާނެ ކަމުގެ މައުލޫމާތު ބޭނުންވެއެވެ.'
+        },
+        timestamp: new Date('2024-01-15T14:45:00'),
+      },
+      {
+        id: 'c1-4',
+        articleId: '1',
+        author: { name: 'Fatima Hassan', avatar: 'https://i.pravatar.cc/150?img=20' },
+        content: {
+          en: 'Finally some positive climate action! We need to move beyond just promises.',
+          dv: 'ފަހުން މޫސުމީ ބަދަލުތަކާމެދު ފިޔަވަޅު އެޅުން! ވައުދުތަކުން އިތުރަށް ކުރިއަށް ދެވޭނެ.'
+        },
+        timestamp: new Date('2024-01-15T16:20:00'),
+      },
+    ],
   },
   {
     id: '2',
@@ -209,6 +341,46 @@ export const mockArticles: Article[] = [
       { en: 'championship', dv: 'ޗެމްޕިއަންޝިޕް' },
     ],
     relatedArticles: ['7'],
+    reactions: {
+      like: 589,
+      love: 423,
+      haha: 8,
+      wow: 312,
+      sad: 2,
+      angry: 1,
+    },
+    comments: [
+      {
+        id: 'c2-1',
+        articleId: '2',
+        author: { name: 'Mohamed Ibrahim', avatar: 'https://i.pravatar.cc/150?img=15' },
+        content: {
+          en: 'What an incredible match! Ahmed Mohamed is unstoppable this season!',
+          dv: 'ކިހާ މޮޅު މެޗެއް! އަހްމަދު މުހައްމަދު މި ސީޒަން ހުއްޓުވަން އުނދަގޫވެ!'
+        },
+        timestamp: new Date('2024-01-14T21:00:00'),
+      },
+      {
+        id: 'c2-2',
+        articleId: '2',
+        author: { name: 'Sarah Williams', avatar: 'https://i.pravatar.cc/150?img=25' },
+        content: {
+          en: 'So proud of our national team! That second goal was absolutely stunning!',
+          dv: 'ގައުމީ ޓީމަކަށް ވަރަށް ފަޚުރުވެރި! ދެވަނަ ލަނޑު ވަރަށް ފުރިހަމަ!'
+        },
+        timestamp: new Date('2024-01-14T21:30:00'),
+      },
+      {
+        id: 'c2-3',
+        articleId: '2',
+        author: { name: 'Ali Hassan', avatar: 'https://i.pravatar.cc/150?img=51' },
+        content: {
+          en: 'Already bought my tickets for the final! Cannot wait to see them play!',
+          dv: 'ފައިނަލަށް ޓިކެޓް ގަނެފިން! މެޗު ބަލަން ވަރަށް އިންތިޒާރު ކުރަން!'
+        },
+        timestamp: new Date('2024-01-14T22:15:00'),
+      },
+    ],
   },
   {
     id: '3',
@@ -252,6 +424,46 @@ export const mockArticles: Article[] = [
       { en: 'economy', dv: 'އިކޮނޮމި' },
     ],
     relatedArticles: ['5'],
+    reactions: {
+      like: 276,
+      love: 134,
+      haha: 5,
+      wow: 198,
+      sad: 3,
+      angry: 2,
+    },
+    comments: [
+      {
+        id: 'c3-1',
+        articleId: '3',
+        author: { name: 'David Chen', avatar: 'https://i.pravatar.cc/150?img=68' },
+        content: {
+          en: 'This is exactly the kind of economic growth we need. Tech sector is the future!',
+          dv: 'މިއީ އަޅުގަނޑުމެންނަށް ބޭނުންވާ އިގްތިސާދީ ކުރިއެރުން! ޓެކްނޮލޮޖީ ސެކްޓަރަކީ މުސްތަގްބަލު!'
+        },
+        timestamp: new Date('2024-01-14T10:20:00'),
+      },
+      {
+        id: 'c3-2',
+        articleId: '3',
+        author: { name: 'Nina Patel', avatar: 'https://i.pravatar.cc/150?img=38' },
+        content: {
+          en: 'Great to see local companies thriving. Are they hiring? Would love to know more about job opportunities.',
+          dv: 'ތިކުދަ ކުންފުނިތައް ކުރިއަރަމުން ދިއުން ފެނުމަކީ އުފާވެރި ކަމެއް. ވަޒީފާ ހުޅުވިފައިވޭތޯ؟ ފުރުސަތުތަކާމެދު އިތުރަށް ދެނެގަތުމަށް ޝައުގުވެރިވަން.'
+        },
+        timestamp: new Date('2024-01-14T11:45:00'),
+      },
+      {
+        id: 'c3-3',
+        articleId: '3',
+        author: { name: 'Robert Martinez', avatar: 'https://i.pravatar.cc/150?img=56' },
+        content: {
+          en: 'The 45% increase is impressive. Would be interesting to know which sub-sectors are driving this growth.',
+          dv: '45% އިތުރުވުމަކީ ވަރަށް ރަނގަޅު އަދަދެއް. މި ކުރިއެރުން އައީ ކޮން ސަބް-ސެކްޓަރތަކުން ކަމެއް ދެނެގަނެވުމަކީ ޝައުގުވެރި ކަމެއް.'
+        },
+        timestamp: new Date('2024-01-14T13:10:00'),
+      },
+    ],
   },
   {
     id: '4',
@@ -294,6 +506,66 @@ export const mockArticles: Article[] = [
       { en: 'local news', dv: 'ލޯކަލް ނިވްސް' },
     ],
     relatedArticles: ['8'],
+    reactions: {
+      like: 412,
+      love: 298,
+      haha: 3,
+      wow: 156,
+      sad: 1,
+      angry: 0,
+    },
+    comments: [
+      {
+        id: 'c4-1',
+        articleId: '4',
+        author: { name: 'Lisa Anderson', avatar: 'https://i.pravatar.cc/150?img=43' },
+        content: {
+          en: 'This is wonderful news for our neighborhood! Can\'t wait to take my kids to the library.',
+          dv: 'އަޅުގަނޑުމެންގެ ސަރަހައްދަށް މިއީ ވަރަށް އުފާވެރި ހަބަރެއް! ކުދިން ފޮތްކަށިއަށް ގެންދަން ކެތްމަދުވެއްޖެ.'
+        },
+        timestamp: new Date('2024-01-13T15:00:00'),
+      },
+      {
+        id: 'c4-2',
+        articleId: '4',
+        author: { name: 'James Thompson', avatar: 'https://i.pravatar.cc/150?img=59' },
+        content: {
+          en: 'Finally! We\'ve been waiting for this community center for years. Great investment in our future.',
+          dv: 'ފަހުން! އަހަރުތަކެއް ވެއްޖެ މި ކޮމިއުނިޓީ ސެންޓަރަށް އިންތިޒާރު ކުރަމުން. އަޅުގަނޑުމެންގެ މުސްތަގްބަލަށް ރަނގަޅު އިންވެސްޓްމަންޓެއް.'
+        },
+        timestamp: new Date('2024-01-13T16:30:00'),
+      },
+      {
+        id: 'c4-3',
+        articleId: '4',
+        author: { name: 'Aisha Mohamed', avatar: 'https://i.pravatar.cc/150?img=31' },
+        content: {
+          en: 'The free programs for seniors are especially welcome! This will really help bring the community together.',
+          dv: 'ބޮޑެތި މީހުންނަށް ހުރި ހިލޭ ޕްރޮގްރާމްތައް ވަރަށް މުހިއްމު! މިއީ ކޮމިއުނިޓީ ގުޅުވައިދޭނެ ކަމެއް.'
+        },
+        timestamp: new Date('2024-01-13T17:45:00'),
+      },
+      {
+        id: 'c4-4',
+        articleId: '4',
+        author: { name: 'Carlos Rivera', avatar: 'https://i.pravatar.cc/150?img=62' },
+        content: {
+          en: 'The gym and swimming pool are going to be amazing for local athletes. Excellent facilities!',
+          dv: 'ޖިމް އަދި ސްވިމިންގ ޕޫލް ތިކުދަ ކުޅުންތެރިންނަށް ވަރަށް މުހިއްމު ވެގެންދާނެ. ފުރިހަމަ އިންތިޒާމްތައް!'
+        },
+        timestamp: new Date('2024-01-13T18:20:00'),
+      },
+      {
+        id: 'c4-5',
+        articleId: '4',
+        author: { name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/150?img=27' },
+        content: {
+          en: 'I registered for the computer literacy class already! So excited about these opportunities.',
+          dv: 'އަހަރެން ކޮމްޕިއުޓަރ ލިޓަރަސީ ކްލާހަށް ރަޖިސްޓަރީ ކޮށްފިން! މި ފުރުސަތުތައް ލިބުމަކީ ވަރަށް އުފާވެރި ކަމެއް.'
+        },
+        timestamp: new Date('2024-01-13T19:10:00'),
+      },
+    ],
   },
   {
     id: '5',
@@ -337,6 +609,36 @@ export const mockArticles: Article[] = [
       { en: 'technology', dv: 'ޓެކްނޮލޮޖީ' },
     ],
     relatedArticles: ['3'],
+    reactions: {
+      like: 318,
+      love: 145,
+      haha: 4,
+      wow: 289,
+      sad: 1,
+      angry: 0,
+    },
+    comments: [
+      {
+        id: 'c5-1',
+        articleId: '5',
+        author: { name: 'David Park', avatar: 'https://i.pravatar.cc/150?img=14' },
+        content: {
+          en: 'Congratulations to the TechStartup team! This is a huge milestone for local AI companies.',
+          dv: 'ޓެކްސްޓާރޓަޕް ޓީމަށް މަރުހަބާ! މިއީ ތިކުދަ އެއައި ކުންފުނިތަކަށް ބޮޑު ކުރިއެރުމެއް.'
+        },
+        timestamp: new Date('2024-01-13T12:00:00'),
+      },
+      {
+        id: 'c5-2',
+        articleId: '5',
+        author: { name: 'Sophia Lee', avatar: 'https://i.pravatar.cc/150?img=44' },
+        content: {
+          en: 'AI automation is the future. Excited to see local companies leading the charge!',
+          dv: 'އެއައި އޮޓޮމޭޝަނަކީ މުސްތަގްބަލު. ތިކުދަ ކުންފުނިތައް މި ދާނީ ކުރިއަށް ފެނުން ވަރަށް އުފާވެރި!'
+        },
+        timestamp: new Date('2024-01-13T13:30:00'),
+      },
+    ],
   },
   {
     id: '6',
@@ -379,6 +681,46 @@ export const mockArticles: Article[] = [
       { en: 'reform', dv: 'ބަދަލުވާ' },
     ],
     relatedArticles: ['1'],
+    reactions: {
+      like: 394,
+      love: 267,
+      haha: 6,
+      wow: 178,
+      sad: 4,
+      angry: 3,
+    },
+    comments: [
+      {
+        id: 'c6-1',
+        articleId: '6',
+        author: { name: 'Teacher Susan', avatar: 'https://i.pravatar.cc/150?img=29' },
+        content: {
+          en: 'As an educator, I\'m thrilled about the focus on teacher professional development. This is long overdue!',
+          dv: 'ޓީޗަރެއްގެ ހައިސިއްޔަތުން ޓީޗަރުންގެ ތަރައްގީއަށް ސަމާލުކަން ދިނުމަކީ ވަރަށް އުފާވެރި ކަމެއް! މި ކަންވީ ވަރަށް ގިނަ ދުވަސް ފަހުން!'
+        },
+        timestamp: new Date('2024-01-12T14:30:00'),
+      },
+      {
+        id: 'c6-2',
+        articleId: '6',
+        author: { name: 'Parent Mike', avatar: 'https://i.pravatar.cc/150?img=52' },
+        content: {
+          en: 'STEM education is critical. Glad to see this getting the attention it deserves.',
+          dv: 'ސްޓެމް ތަޢުލީމަކީ ވަރަށް މުހިއްމު ކަމެއް. މިކަމަށް ސަމާލުކަން ދޭތާ ފެނުމަކީ އުފާވެރި ކަމެއް.'
+        },
+        timestamp: new Date('2024-01-12T15:45:00'),
+      },
+      {
+        id: 'c6-3',
+        articleId: '6',
+        author: { name: 'Hassan Ahmed', avatar: 'https://i.pravatar.cc/150?img=70' },
+        content: {
+          en: '$500 million is a significant investment. Hope it\'s allocated efficiently and transparently.',
+          dv: '$500 މިލިޔަން އަކީ ވަރަށް ބޮޑު އިންވެސްޓްމަންޓެއް. ނަހަމަ މެނުވީ މި ފައިސާ ހަމަ އަދުލުވެރިކަމާއެކީ ބެހެން ޖެހޭ.'
+        },
+        timestamp: new Date('2024-01-12T17:00:00'),
+      },
+    ],
   },
   {
     id: '7',
@@ -417,10 +759,50 @@ export const mockArticles: Article[] = [
     publishedAt: new Date('2024-01-12T18:20:00'),
     tags: [
       { en: 'swimming', dv: 'ވާވަގި' },
-      { en: 'olympics', dv: 'އޮލިмпिक' },
+      { en: 'olympics', dv: 'އޮލિم್पிက' },
       { en: 'records', dv: 'ރިކޯރްޑް' },
     ],
     relatedArticles: ['2'],
+    reactions: {
+      like: 521,
+      love: 387,
+      haha: 4,
+      wow: 445,
+      sad: 0,
+      angry: 0,
+    },
+    comments: [
+      {
+        id: 'c7-1',
+        articleId: '7',
+        author: { name: 'Coach Ali', avatar: 'https://i.pravatar.cc/150?img=11' },
+        content: {
+          en: 'Maya is an incredible talent! Her dedication and hard work are paying off. Olympic gold is within reach!',
+          dv: 'މާޔާ އަކީ ވަރަށް ހުނަރުވެރި ކުޅުންތެރިއެއް! އޭނާގެ ބުރަ މަސައްކަތް ފައިދާހުރި ވަމުން ދަނީ. އޮލިމްޕިކް ރަން މެޑަލް ހޯދަން ވަރަށް ގާތެވެ!'
+        },
+        timestamp: new Date('2024-01-12T19:00:00'),
+      },
+      {
+        id: 'c7-2',
+        articleId: '7',
+        author: { name: 'Sports Fan Tony', avatar: 'https://i.pravatar.cc/150?img=63' },
+        content: {
+          en: 'Breaking a record that stood for 8 years! This is phenomenal! Go Maya!',
+          dv: '8 އަހަރު ވެފައިވާ ރެކޯޑެއް ކަނޑާލުން! މިއީ ވަރަށް ފެންނާނެ ކަމެއް! މާޔާއަށް މަރުޙަބާ!'
+        },
+        timestamp: new Date('2024-01-12T19:45:00'),
+      },
+      {
+        id: 'c7-3',
+        articleId: '7',
+        author: { name: 'Proud Parent', avatar: 'https://i.pravatar.cc/150?img=36' },
+        content: {
+          en: 'This is so inspiring for young athletes everywhere. Maya is a true role model!',
+          dv: 'މިއީ ހުރިހާ ތަނެއްގައި ތިބި ޒުވާން ކުޅުންތެރިންނަށް ވަރަށް ހިތްވަރު ލިބޭނެ ކަމެއް. މާޔާ އަކީ ހަގީގީ ރޯލް މޮޑެލެއް!'
+        },
+        timestamp: new Date('2024-01-12T20:30:00'),
+      },
+    ],
   },
   {
     id: '8',
@@ -463,6 +845,56 @@ export const mockArticles: Article[] = [
       { en: 'exhibition', dv: 'ސިވިވި' },
     ],
     relatedArticles: ['4'],
+    reactions: {
+      like: 356,
+      love: 289,
+      haha: 2,
+      wow: 201,
+      sad: 0,
+      angry: 0,
+    },
+    comments: [
+      {
+        id: 'c8-1',
+        articleId: '8',
+        author: { name: 'Art Lover Jane', avatar: 'https://i.pravatar.cc/150?img=23' },
+        content: {
+          en: 'Visited the exhibition yesterday - absolutely stunning work by our local artists! Highly recommend!',
+          dv: 'އިއްޔެ މި ސިވިވި ބައްލަވައިގަތިން - ތިކުދަ އާޓިސްޓުންގެ ވަރަށް ފުރިހަމަ މަސައްކަތް! ހުރިހާ ބައެއްވެސް ބަލާލަން ޖެހޭ!'
+        },
+        timestamp: new Date('2024-01-11T11:30:00'),
+      },
+      {
+        id: 'c8-2',
+        articleId: '8',
+        author: { name: 'Curator Amina', avatar: 'https://i.pravatar.cc/150?img=45' },
+        content: {
+          en: 'So proud to showcase these talented emerging artists. Don\'t miss the artist talks this weekend!',
+          dv: 'މި ހުނަރުވެރި އާޓިސްޓުން ދައްކުވައިދެވުނީމަ ވަރަށް ފަޚުރުވެރިވޭ. މި ހަފްތާގެ ކުރީއަށް އާޓިސްޓް ވާހަކަތައް ގެއްލުވައިނުލައްވާ!'
+        },
+        timestamp: new Date('2024-01-11T14:00:00'),
+      },
+      {
+        id: 'c8-3',
+        articleId: '8',
+        author: { name: 'Student Artist', avatar: 'https://i.pravatar.cc/150?img=60' },
+        content: {
+          en: 'As an aspiring artist, this exhibition is so inspiring! Thank you for supporting local talent.',
+          dv: 'އާޓިސްޓަކަށް ވާން އުންމީދުކުރާ މީހެއްގެ ގޮތުން މި ސިވިވި ވަރަށް ހިތްވަރު ލިބޭ! ތިކުދަ ހުނަރުވެރިންނަށް ސަޕޯޓްކުރައްވާތީ ޝުކުރިއްޔާ.'
+        },
+        timestamp: new Date('2024-01-11T16:45:00'),
+      },
+      {
+        id: 'c8-4',
+        articleId: '8',
+        author: { name: 'Community Member', avatar: 'https://i.pravatar.cc/150?img=48' },
+        content: {
+          en: 'Free admission is great! Planning to take my family this weekend. Love supporting local arts.',
+          dv: 'ހިލޭ އެޑްމިޝަން ވަރަށް ރަނގަޅު! މި ހަފްތާގެ ކުރީއަށް އާއިލާ ގެންދަން ޕްލޭން ކުރަމުން. ތިކުދަ އާޓް ސަޕޯޓްކުރުން ވަރަށް ރަގަނޅު!'
+        },
+        timestamp: new Date('2024-01-11T18:20:00'),
+      },
+    ],
   },
 ];
 
