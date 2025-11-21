@@ -19,7 +19,8 @@ export default function WriterPage({ params }: WriterPageProps) {
   const author = getAuthorBySlug(slug);
   const language = useUIStore((state) => state.language);
 
-  if (!author) {
+  // Return 404 if author doesn't exist or is deleted
+  if (!author || author.isDeleted) {
     notFound();
   }
 

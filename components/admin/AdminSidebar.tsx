@@ -37,7 +37,6 @@ const navigation = [
     name: 'Authors',
     href: '/admin/authors',
     icon: Users,
-    disabled: true,
   },
   {
     name: 'Settings',

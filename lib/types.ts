@@ -47,6 +47,10 @@ export interface Author {
     facebook?: string;
     email?: string;
   };
+
+  // Metadata
+  createdAt: Date;
+  isDeleted: boolean; // Soft delete support
 }
 
 // Engagement types

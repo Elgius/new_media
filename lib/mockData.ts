@@ -135,7 +135,9 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/sarahjohnson',
       linkedin: 'https://linkedin.com/in/sarahjohnson',
       email: 'sarah.johnson@newshub.com'
-    }
+    },
+    createdAt: new Date('2024-01-15'),
+    isDeleted: false,
   },
   {
     id: '2',
@@ -150,7 +152,9 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/ahmedrahman',
       facebook: 'https://facebook.com/ahmedrahman',
       email: 'ahmed.rahman@newshub.com'
-    }
+    },
+    createdAt: new Date('2024-02-20'),
+    isDeleted: false,
   },
   {
     id: '3',
@@ -165,7 +169,9 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/michaelchen',
       linkedin: 'https://linkedin.com/in/michaelchen',
       email: 'michael.chen@newshub.com'
-    }
+    },
+    createdAt: new Date('2024-03-10'),
+    isDeleted: false,
   },
   {
     id: '4',
@@ -180,7 +186,9 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/jenniferwilliams',
       facebook: 'https://facebook.com/jenniferwilliams',
       email: 'jennifer.williams@newshub.com'
-    }
+    },
+    createdAt: new Date('2024-05-05'),
+    isDeleted: false,
   },
   {
     id: '5',
@@ -195,7 +203,9 @@ export const authors: Author[] = [
       twitter: 'https://twitter.com/roberttaylor',
       linkedin: 'https://linkedin.com/in/roberttaylor',
       email: 'robert.taylor@newshub.com'
-    }
+    },
+    createdAt: new Date('2024-06-12'),
+    isDeleted: false,
   },
 ];
 

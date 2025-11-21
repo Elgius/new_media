@@ -53,23 +53,33 @@ export const useArticleStore = create<ArticleStore>((set, get) => ({
 
   getArticlesByCategory: (slug) => {
     const { articles } = get();
-    return articles.filter((article) => article.category.slug === slug);
+    return articles.filter(
+      (article) => article.category.slug === slug && !article.author.isDeleted
+    );
   },
 
   getArticleBySlug: (slug) => {
     const { articles } = get();
-    return articles.find((article) => article.slug === slug);
+    const article = articles.find((article) => article.slug === slug);
+    // Return undefined if article's author is deleted (hide from public view)
+    if (article && article.author.isDeleted) {
+      return undefined;
+    }
+    return article;
   },
 
   getFeaturedArticles: () => {
     const { articles } = get();
-    return articles.filter((article) => article.featured);
+    return articles.filter((article) => article.featured && !article.author.isDeleted);
   },
 
   searchArticles: (query) => {
     const { articles } = get();
     const lowerQuery = query.toLowerCase();
     return articles.filter((article) => {
+      // Filter out articles with deleted authors
+      if (article.author.isDeleted) return false;
+
       // Search in bilingual title
       const titleMatch =
         article.title.en.toLowerCase().includes(lowerQuery) ||
